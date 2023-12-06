@@ -1,4 +1,5 @@
 # not checking in my input, place your own here in form of '01.txt`, '02.txt` etc.
 input/*
 !input/.gitkeep
+!input/*_test*
 .ipynb_checkpoints
