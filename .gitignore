@@ -3,3 +3,4 @@ input/*
 !input/.gitkeep
 !input/*_test*
 .ipynb_checkpoints
+rust*
