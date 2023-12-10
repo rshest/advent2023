@@ -104,3 +104,29 @@ print(res1)
 inside = list(get_inside(field, path))
 res2 = len(inside)
 print(res2)
+
+def draw_field(field, path, inside):
+    SUBST = {
+        '|': '│',
+        '-': '─',
+        'L': '└',
+        'J': '┘',
+        '7': '┐',
+        'F': '┌',
+    }
+    spath = set(path)
+    sinside = set(inside)
+    for j in range(len(field)):
+        line = field[j]
+        chars = [c for c in line]
+        for i in range(len(chars)):
+            c = chars[i]
+            if c == 'S':
+                continue
+            if (i, j) not in spath:
+                chars[i] = '█' if (i, j) in sinside else ' '
+            else:
+                chars[i] = SUBST[c]
+        print(''.join(chars))
+
+draw_field(field, path, inside)
