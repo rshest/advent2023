@@ -31,11 +31,13 @@ def expand_field(field, factor=2):
         lastx = x
     return res
 
+
 def swap_coords(field):
     res = set()
     for x, y in field:
         res.add((y, x))
     return res
+
 
 def get_dists(field):
     coords = list(field)
@@ -46,10 +48,12 @@ def get_dists(field):
             res += manhattan_dist(coords[i], coords[j])
     return res
 
+
 def solve(field, factor=2):
     field = expand_field(field, factor)
     field = swap_coords(expand_field(swap_coords(field), factor))
     return get_dists(field)
+
 
 field = parse_field(lines)
 res1 = solve(field)
