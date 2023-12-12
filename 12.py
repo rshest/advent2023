@@ -1,4 +1,4 @@
-f = open('input/12_test.txt', 'r')
+f = open('input/12.txt', 'r')
 lines = [line.strip() for line in f.readlines()]
 
 def parse_line(line):
@@ -49,9 +49,13 @@ def get_num_subst(syms, ranges, syms_offs=0, range_offs=0, cont=False):
         return n1 + n2
 
 def get_num_subst1(sym_ranges, ranges, sym_ranges_offs=0, ranges_offs=0):
+    global mem
     if sym_ranges_offs == len(sym_ranges):
         return int(ranges_offs == len(ranges))
     syms = sym_ranges[sym_ranges_offs]
+    key = "|".join("".join(s) for s in sym_ranges[sym_ranges_offs:]) + "||" + ",".join(str(x) for x in ranges[ranges_offs:])
+    if key in mem:
+        return mem[key]
     res = 0
     n = 0
     while ranges_offs + n <= len(ranges):
@@ -61,6 +65,7 @@ def get_num_subst1(sym_ranges, ranges, sym_ranges_offs=0, ranges_offs=0):
             nsrest = get_num_subst1(sym_ranges, ranges, sym_ranges_offs + 1, ranges_offs + n)
         res += ns * nsrest
         n += 1
+    mem[key] = res
     return res
 
 
