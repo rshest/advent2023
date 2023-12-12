@@ -48,7 +48,7 @@ def get_num_subst(syms, ranges, syms_offs=0, range_offs=0, cont=False):
         mem[key] = n1 + n2
         return n1 + n2
 
-def get_num_subst1(sym_ranges, ranges, sym_ranges_offs=0, ranges_offs=0):
+def get_num_segmented(sym_ranges, ranges, sym_ranges_offs=0, ranges_offs=0):
     global mem
     if sym_ranges_offs == len(sym_ranges):
         return int(ranges_offs == len(ranges))
@@ -62,7 +62,7 @@ def get_num_subst1(sym_ranges, ranges, sym_ranges_offs=0, ranges_offs=0):
         ns = get_num_subst(syms, ranges[ranges_offs:ranges_offs + n])
         nsrest = 0
         if ns > 0:
-            nsrest = get_num_subst1(sym_ranges, ranges, sym_ranges_offs + 1, ranges_offs + n)
+            nsrest = get_num_segmented(sym_ranges, ranges, sym_ranges_offs + 1, ranges_offs + n)
         res += ns * nsrest
         n += 1
     mem[key] = res
@@ -91,7 +91,7 @@ for i in range(len(exp)):
     syms, ranges = exp[i]
     syms_str = "".join(syms)
     print(f"{i + 1: >3}/{len(exp)}: {syms_str} | {ranges} ")
-    n = get_num_subst1(split_sym_ranges(syms), ranges)
+    n = get_num_segmented(split_sym_ranges(syms), ranges)
     nsubst2.append(n)
 
 res2 = sum(nsubst2)
