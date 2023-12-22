@@ -42,7 +42,8 @@ def step_times(field, n):
         ppos = step(field, ppos)
     return ppos
 
-def eval_pcount(ppos, side, nsteps):
+
+def eval_patch_count(ppos, side, nsteps):
     def count_in_square(x, y):
         return count_inside(ppos, x * side, (x + 1) * side - 1, y * side, (y + 1) * side - 1)
 
@@ -62,7 +63,7 @@ def eval_pcount(ppos, side, nsteps):
     nrb1 = count_in_square(1, 1)
     nlb1 = count_in_square(-1, 1)
 
-    # ege squares even
+    # edge squares even
     nlt2 = count_in_square(-2, -1)
     nrt2 = count_in_square(2, -1)
     nrb2 = count_in_square(2, 1)
@@ -84,5 +85,5 @@ s0 = side // 2
 ppos = step_times(field, s0 + side * 2)
 
 NSTEPS = 26501365
-res2 = eval_pcount(ppos, side, NSTEPS)
+res2 = eval_patch_count(ppos, side, NSTEPS)
 print(res2)
